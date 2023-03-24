@@ -32,10 +32,10 @@ def newGame(username):
         foreground = "grey",
         background = "black"
     ).pack(side=TOP)
-    pygame.init()
+    """pygame.init()
     dis=pygame.display.set_mode((400,300))
     pygame.display.update()
-    pygame.quit()
+    pygame.quit()"""
 
 def home_screen():
     window = Tk()
