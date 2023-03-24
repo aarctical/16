@@ -1,0 +1,49 @@
+
+carPark = []
+
+
+def enterNew(reg):
+    if reg in carPark:
+        print(reg, "is already registered")
+    else:
+        carPark.append(reg)
+        print(reg, "has been registered")
+def removeReg(reg):
+    if reg in carPark:
+        carPark.remove(reg)
+        print(reg, "has been removed")
+    else:
+        print("Vehicle is already not parked!")
+def checkReg(reg):
+    if reg in carPark:
+        print("This vehicle is parked")
+    else:
+        print("This vehicle is not parked")
+def showList():
+    if len(carPark) == 0:
+        print("The parking is empty!")
+    else:        
+        print(carPark)
+def showError():
+    print("Unknown choice, the choices are: \n- Enter \n- Remove \n- Check \n- List")
+
+while True:
+    choice = str(input("Enter choice "))
+    choice = choice.upper()
+    if choice == "ENTER":
+        reg = str(input("Enter Registration to enter "))
+        reg = reg.upper()
+        enterNew(reg)
+    elif choice == "REMOVE":
+        reg = str(input("Enter Registration to remove "))
+        reg = reg.upper()
+        removeReg(reg)
+    elif choice == "CHECK":
+        reg = str(input("Enter Registration to check "))
+        reg = reg.upper()
+        checkReg(reg)
+    elif choice == "LIST":
+        showList()
+    else:
+        showError()
+
