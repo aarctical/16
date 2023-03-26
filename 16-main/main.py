@@ -6,15 +6,15 @@ def newUsername(x):
     noUser = True
     while noUser == True: 
         if len(x) < 3:
-            return "This username is not accepted"
+            print(">> This username is not accepted")
         if len(x) > 9:
-            return "This username is not accepted"
+            print(">> This username is not accepted")
         if len(x) > 2 and len(x) < 10:
             noUser = False
+            print(">> This has been accepted.. loading game.")
             global username
             username = x
             home_screen()
-            return "This has been accepted.. loading game."
 
 def newGame2(username):
     pygame.init()
@@ -63,7 +63,7 @@ def home_screen():
                 print("This username is not accepted")
             else:
                 window.destroy()
-                newGame(username)
+                newGame2(username)
 
     unEntry = Text(window, height=10, width=40)
     unEntry.pack(side=TOP)
@@ -78,7 +78,7 @@ def home_screen():
 
 def enterHome(username):
     window2 = Tk()
-    window2.title(f'Schlange ¦ Home Screen ¦ {username}')
+    window2.title(f'Schlange | Home Screen | {username}')
     window2.geometry("500x400")
     lbl = Label(
         window2,
