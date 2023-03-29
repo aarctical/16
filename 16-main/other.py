@@ -1,5 +1,7 @@
 import pygame as game
 import time
+from tkinter import *
+import os
 
 game.init()
 window_width = 800
@@ -57,60 +59,58 @@ time.sleep(3)
 game.quit()
 quit()
 
-from tkinter import *
-import os
-import time
 
-def counter(func):
-    def wrapper():
-        t1 = time.time()
-        func()
-        t2 = time.time()-t1
-        print(f'{func.__name__} ran in '\
-              f' {t2} seconds')
-    return wrapper
+class new:
+    def counter(func):
+        def wrapper():
+            t1 = time.time()
+            func()
+            t2 = time.time()-t1
+            print(f'{func.__name__} ran in '\
+                f' {t2} seconds')
+        return wrapper
 
-@counter
-def gameHome():
-    screen3.destroy()
+    @counter
+    def gameHome():
+        screen3.destroy()
+        lobby()
+
+    @counter
+    def game():
+        screen.destroy()
+        global screen3
+        screen3 = Tk()
+        screen3.geometry("1920x1080")
+        screen3.title("Game")
+        #screen3.iconbitmap('E:/Pictures/live.ico') // broken
+        Button(text = "Back to home", width = "50", height = "2", bg = "white", fg = "black", command = gameHome).pack()
+
+    @counter
+    def settingsHome():
+        screen2.destroy()
+        lobby()
+
+    @counter
+    def settings():
+        screen.destroy()
+        global screen2
+        screen2 = Tk()
+        screen2.geometry("1920x1080")
+        screen2.title("Settings")
+        #screen2.iconbitmap('E:/Pictures/live.ico') // broken
+        Button(text = "Back to home", width = "50", height = "2", bg = "white", fg = "black", command = settingsHome).pack()
+
+    @counter
+    def lobby():
+        global screen
+        screen = Tk()
+        screen.geometry("1920x1080")
+        screen.title("Home Screen")
+        #screen.iconbitmap('E:/Pictures/live.ico') // broken
+        Label(text = "Game Home screen", bg = "grey", fg = "white", width = "1920", height = "5", font = ("Calibri", 15)).pack()
+        Label(text = "").pack()
+        Button(text = "Start New Game", width = "50", height = "2", bg = "white", fg = "black", command = game).pack(padx=900, pady=0, side=TOP)
+        Label(text = "").pack()
+        Button(text = "Settings", width = "50", height = "2", bg = "white", fg = "black", command = settings).pack(padx=900, pady=0, side=TOP)
+        screen.mainloop
     lobby()
-
-@counter
-def game():
-    screen.destroy()
-    global screen3
-    screen3 = Tk()
-    screen3.geometry("1920x1080")
-    screen3.title("Game")
-    #screen3.iconbitmap('E:/Pictures/live.ico') // broken
-    Button(text = "Back to home", width = "50", height = "2", bg = "white", fg = "black", command = gameHome).pack()
-
-@counter
-def settingsHome():
-    screen2.destroy()
-    lobby()
-
-@counter
-def settings():
-    screen.destroy()
-    global screen2
-    screen2 = Tk()
-    screen2.geometry("1920x1080")
-    screen2.title("Settings")
-    #screen2.iconbitmap('E:/Pictures/live.ico') // broken
-    Button(text = "Back to home", width = "50", height = "2", bg = "white", fg = "black", command = settingsHome).pack()
-
-@counter
-def lobby():
-    global screen
-    screen = Tk()
-    screen.geometry("1920x1080")
-    screen.title("Home Screen")
-    #screen.iconbitmap('E:/Pictures/live.ico') // broken
-    Label(text = "Game Home screen", bg = "grey", fg = "white", width = "1920", height = "5", font = ("Calibri", 15)).pack()
-    Label(text = "").pack()
-    Button(text = "Start New Game", width = "50", height = "2", bg = "white", fg = "black", command = game).pack(padx=900, pady=0, side=TOP)
-    Label(text = "").pack()
-    Button(text = "Settings", width = "50", height = "2", bg = "white", fg = "black", command = settings).pack(padx=900, pady=0, side=TOP)
-    screen.mainloop
-lobby()
