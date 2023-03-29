@@ -114,3 +114,15 @@ def exitSettings():
     enterHome()
 
 enterHome()
+
+
+# Leave messages
+"""
+
+    Hmm.. We seem to have an error, I've shut the program down to stop further issues.
+    >> This result is when a logic  or math operation fails to work, so it shuts the program to stop other errors
+
+    You seem to have left. Did I upset you? What did I do wrong? I thought you loved me...
+    >> This result is when you choose to close the game, either in the Home Screen, or during the game
+
+"""
