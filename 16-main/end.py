@@ -13,9 +13,14 @@ def saveSettings():
 def enterHome(): # This is the home screen
     global window # Allows the window to be called/modified outside of this function
     global gName # Allows reference of the gName variable
-    window = Tk()
+    
+    # The following 'window' objects start a new window utlising Tkinter
+
+    window = Tk() 
     window.title(f'{gName} ¦ Home Screen')
     window.geometry("500x250")
+
+    # The following Icons are pictures used for the Labels on the home screen
 
     icon1 = PhotoImage(file='./img/settings.png')
     icon2 = PhotoImage(file='./img/exit.png')
@@ -23,29 +28,24 @@ def enterHome(): # This is the home screen
     icon4 = PhotoImage(file='./img/play.png')
     icon5 = PhotoImage(file='./img/hmm.png')
 
-    """Images = [icon1, icon2, icon3, icon4]
-    labels = ['Settings', 'Version', 'Play', 'Exit']
-
-    r = 0
-    s = 0
-    for x in labels:
-        Label(image=Images[s], relief=RIDGE, bg='white').grid(row=r,column=0)
-        Button(text=x, relief=RIDGE, width=20, height=3).grid(row=r, column=1)
-        r = r+1
-        s = s+1"""
-
+    # This will make the 'Play' Label and its Icon
     PlayLbl = Label(image=icon4,relief=RIDGE,bg="white").grid(row=0,column=0)
-    PlayBtn = Button(text="Play",relief=RIDGE,width=20,height=3, command=play).grid(row=0,column=1)
-    
+    PlayBtn = Button(text="Play",relief=RIDGE,width=20,height=3, command=play).grid(row=0,column=1) 
+ 
+    # This will make the 'Settings' Label and its Icon   
     SettingsLbl = Label(image=icon1,relief=RIDGE,bg="white").grid(row=1,column=0)
     SettingsBtn = Button(text="Settings",relief=RIDGE,width=20,height=3, command=settings).grid(row=1,column=1)
 
+    # This will make the 'Version' Label and its Icon
     VersionLbl = Label(image=icon3,relief=RIDGE,bg="white").grid(row=2,column=0)
     VersionBtn = Button(text="Show/Hide Version",relief=RIDGE,width=20,height=3, command=version).grid(row=2,column=1)
 
+    # This will make the 'Exit' Label and its Icon
     ExitLbl = Label(image=icon2,relief=RIDGE,bg="white").grid(row=3,column=0)
     ExitBtn = Button(text="Exit",relief=RIDGE,width=20,height=3, command=leave).grid(row=3,column=1)
         
+    # ^^ The 'GRID' placement of Tkinter allows me to place objects in a uniformed cell no matter the window size ^^
+    
     lbl1 = Label(
         text=f'Welcome to {gName}').grid(row=0,column=2)
     lbl2 = Label(
