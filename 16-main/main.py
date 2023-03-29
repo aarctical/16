@@ -54,7 +54,7 @@ def home_screen():
     lbl.pack(side=TOP)
 
     def saveEntry(): # does not work for some reason
-        username = unEntry.get(1, "ERROR")
+        username = unEntry.get(1.0, "ERROR")
         print(username)
         if len(username) < 2:
             print("This username is not accepted")
