@@ -275,7 +275,7 @@ def play():
                             backloop = True
             if backloop == True:
                 game_over = True
-                print("Again??")
+                print("Again? Really, you\'re busting my balls here man, let me fix this for you.")
                 exit()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -343,5 +343,8 @@ enterHome()
 
     Oh no. You've broken me again? That's it... We're over!
     >> This result is when an undefined variable is unexpected during editing the settings
+
+    Again? Really, you're busting my balls here man, let me fix this for you.
+    >> This result is when a user ends the game, and gives a variable outside the required scope
 
 """
