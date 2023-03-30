@@ -133,7 +133,7 @@ def saveUserEntry():
         backloop = True
     if backloop == True:
         window.destroy()
-        print("Oh no. You've broke me again? That's it... We're over!")
+        print("Oh no. You've broken me again? That's it... We're over!")
         exit()
         
 
@@ -191,6 +191,7 @@ def play():
 
     window.destroy()
 
+    t1 = time.time()
     game.init()
     window_width = 800
     window_height = 600
@@ -211,6 +212,8 @@ def play():
     
     game_over = False
     font_style = game.font.SysFont(None, 50, bold=True, italic=True)
+    t2 = time.time()-t1
+    t3 = time.time()
     def message(msg, colour):
         mesg = font_style.render(msg, True, colour)
         window.blit(mesg, [window_width/2, window_height/2])
@@ -240,13 +243,14 @@ def play():
         window.fill(white)
         game.draw.rect(window, black, [x1, y1, 10, 10])
         game.display.update()
-        clock.tick(30)
+        clock.tick(60)
         
     message('You lost', red)
     game.display.update()
+    t4 = time.time()-t3
     time.sleep(3)
     game.quit()
-    quit()
+    enterHome()
 
 enterHome()
 
@@ -260,7 +264,7 @@ enterHome()
     You seem to have left. Did I upset you? What did I do wrong? I thought you loved me...
     >> This result is when you choose to close the game, either in the Home Screen, or during the game
 
-    Oh no. You've broke me again? That's it... We're over!
+    Oh no. You've broken me again? That's it... We're over!
     >> This result is when an undefined variable is unexpected during editing the settings
 
 """
