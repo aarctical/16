@@ -107,6 +107,7 @@ def play():
     return
 
 def saveUserEntry():
+    backloop = False
     global uEtr
     currentUser = uEtr.get()
     print(currentUser)
@@ -119,7 +120,7 @@ def saveUserEntry():
             window,
             text="This username is not accepted!",
             fg="red").pack()
-    else:
+    elif len(currentUser) > 1 and len(currentUser) < 10:
         global verifiedUser
         verifiedUser = currentUser.strip()
         print(verifiedUser)
@@ -127,6 +128,13 @@ def saveUserEntry():
             window,
             text="This username is accepted!",
             fg="green").pack()
+    else:
+        backloop = True
+    if backloop == True:
+        window.destroy()
+        print("Oh no. You've broke me again? That's it... We're over!")
+        exit()
+        
 
 def settings():
     t1 = time.time()
@@ -186,5 +194,8 @@ enterHome()
 
     You seem to have left. Did I upset you? What did I do wrong? I thought you loved me...
     >> This result is when you choose to close the game, either in the Home Screen, or during the game
+
+    Oh no. You've broke me again? That's it... We're over!
+    >> This result is when an undefined variable is unexpected during editing the settings
 
 """
