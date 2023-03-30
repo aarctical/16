@@ -221,10 +221,10 @@ def play():
      
     def Your_score(score):
         if verifiedUser != None:
-            value = score_font.render(f'{verifiedUser}\'s Score: ' + str(score), True, yellow)
+            value = score_font.render(f'{verifiedUser}\'s Score: ' + str(score), True, white)
         else:
-            value = score_font.render(f'User\'s Score: ' + str(score), True, yellow)
-        dis.blit(value, [0, 0])
+            value = score_font.render(f'User\'s Score: ' + str(score), True, white)
+        dis.blit(value, [1000, 1000])
      
      
      
@@ -237,8 +237,8 @@ def play():
         mesg = font_style.render(msg, True, color)
         dis.blit(mesg, [dis_width / 6, dis_height / 3])
      
-     
     def gameLoop():
+        global verifiedUser
         game_over = False
         game_close = False
         backloop = False
@@ -258,8 +258,28 @@ def play():
         while not game_over:
      
             while game_close == True:
-                dis.fill(blue)
-                message("You Lost! \nPress SPACE to play again\nPress X to quit", red)
+                dis.fill(white)
+
+                text = "You lost!\nSPACE to play again\nX to quit"
+                font = pygame.font.SysFont("arialblack",30)
+   
+                def display_text(surface, text, pos, font, color):
+                    collection = [word.split(' ') for word in text.splitlines()]
+                    space = font.size(' ')[0]
+                    x,y = pos
+                    for lines in collection:
+                        for words in lines:
+                            word_surface = font.render(words, True, color)
+                            word_width, word_height = word_surface.get_size()
+                            if x + word_width >= 600:
+                                x = pos[0]
+                                y += word_height
+                            surface.blit(word_surface, (x,y))
+                            x += word_width + space
+                        x = pos[0]
+                        y += word_height
+                
+                display_text(dis, text, (150,150), font, (255,0,0))
                 Your_score(Length_of_snake - 1)
                 pygame.display.update()
      
@@ -267,8 +287,16 @@ def play():
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_x:
                             game_over = True
-                            game_close = False
-                            enterHome()
+                            finalscore = str(Length_of_snake-1)
+                            if verifiedUser == None:
+                                pygame.quit()
+                                enterHome()
+                            elif verifiedUser != None:
+                                file = open('scores.txt','w')
+                                file.write(verifiedUser+' | '+finalscore)
+                                file.close()
+                                pygame.quit()
+                                enterHome()
                         if event.key == pygame.K_SPACE:
                             gameLoop()
                         else:
@@ -281,16 +309,16 @@ def play():
                 if event.type == pygame.QUIT:
                     game_over = True
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_LEFT:
+                    if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                         x1_change = -snake_block
                         y1_change = 0
-                    elif event.key == pygame.K_RIGHT:
+                    elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                         x1_change = snake_block
                         y1_change = 0
-                    elif event.key == pygame.K_UP:
+                    elif event.key == pygame.K_w or event.key == pygame.K_UP:
                         y1_change = -snake_block
                         x1_change = 0
-                    elif event.key == pygame.K_DOWN:
+                    elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
                         y1_change = snake_block
                         x1_change = 0
      
@@ -298,7 +326,7 @@ def play():
                 game_close = True
             x1 += x1_change
             y1 += y1_change
-            dis.fill(blue)
+            dis.fill(white)
             pygame.draw.rect(dis, green, [foodx, foody, snake_block, snake_block])
             snake_Head = []
             snake_Head.append(x1)
@@ -320,10 +348,12 @@ def play():
                 foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
                 foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
                 Length_of_snake += 1
+                if verifiedUser != None:
+                        pygame.display.set_caption(f'{gName} | {verifiedUser} | Score: '+str(Length_of_snake-1))
+                else:
+                    pygame.display.set_caption(f'{gName} | Score: '+str(Length_of_snake-1))
      
             clock.tick(snake_speed)
-     
-        pygame.quit()
         quit()
      
     gameLoop()
