@@ -2,6 +2,7 @@ from tkinter import * # GUI Directory for python
 from tkinter import ttk
 import time # Time function for calculating clock speeds
 from PIL import Image, ImageTk # Image handling (Icons)
+import pygame as game
 
 gName = "Schlange" # Game Name
 vCount = 0 # This is the version count (For MOD show/hide Function)
@@ -143,19 +144,18 @@ def settings():
     window.destroy()
 
     window = Tk() 
-    window.title(f'{gName} ¦ Settings')
+    window.title(f'{gName} | Settings')
     window.geometry("500x250")
 
     lbl = Label(
         window,
         text="Welcome to Schlange Settings",
-        fg = "black",
-        bg="gray"
     ).pack()
 
     btn = Button(
         window,
         text="Back to home",
+        fg="blue",
         command=exitSettings).pack()
     if backloop == True:
         print("Hmm.. We seem to have an error, I've shut the program down to stop further issues.")
@@ -182,6 +182,71 @@ def exitSettings():
     backloop = True
     window.destroy()
     enterHome()
+
+def play():
+    global window
+    global verifiedUser
+    global gName
+    global vVersion
+
+    window.destroy()
+
+    game.init()
+    window_width = 800
+    window_height = 600
+    window = game.display.set_mode((window_width, window_height))
+    game.display.update()
+    game.display.set_caption(gName)
+
+    white = (255,255,255)
+    black = (0,0,0)
+    blue = (0,0,255)
+    red = (255,0,0)
+
+    x1 = 300
+    y1 = 300
+    x1_change = 0
+    y1_change = 0
+    clock = game.time.Clock()
+    
+    game_over = False
+    font_style = game.font.SysFont(None, 50, bold=True, italic=True)
+    def message(msg, colour):
+        mesg = font_style.render(msg, True, colour)
+        window.blit(mesg, [window_width/2, window_height/2])
+
+    while not game_over:
+        for event in game.event.get():
+            if event.type==game.QUIT:
+                game_over = True
+            if event.type == game.KEYDOWN:
+                if event.key == game.K_LEFT:
+                    x1_change = -10
+                    y1_change = 0
+                elif event.key == game.K_RIGHT:
+                    x1_change = 10
+                    y1_change = 0
+                elif event.key == game.K_UP:
+                    x1_change = 0
+                    y1_change = -10
+                elif event.key == game.K_DOWN:
+                    x1_change = 0
+                    y1_change = 10
+        if x1 >= window_width or x1 < 0 or y1 >= window_height or y1 < 0:
+            game_over = True
+            
+        x1 += x1_change
+        y1 += y1_change
+        window.fill(white)
+        game.draw.rect(window, black, [x1, y1, 10, 10])
+        game.display.update()
+        clock.tick(30)
+        
+    message('You lost', red)
+    game.display.update()
+    time.sleep(3)
+    game.quit()
+    quit()
 
 enterHome()
 
