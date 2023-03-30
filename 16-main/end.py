@@ -1,4 +1,5 @@
 from tkinter import * # GUI Directory for python
+from tkinter import ttk
 import time # Time function for calculating clock speeds
 from PIL import Image, ImageTk # Image handling (Icons)
 
@@ -6,18 +7,30 @@ gName = "Schlange" # Game Name
 vCount = 0 # This is the version count (For MOD show/hide Function)
 vVersion = "Version: 4.0.3"
 
+""" VARIABLES """
+currentUser = None
+verifiedUser = None
+
+def closeCurrent():
+    window.destroy()
+
 def saveSettings():
-    window2.destroy()
+    window.destroy()
     # More settings add here
 
 def enterHome(): # This is the home screen
+    t1 = time.time()
     global window # Allows the window to be called/modified outside of this function
     global gName # Allows reference of the gName variable
+    global verifiedUser
     
     # The following 'window' objects start a new window utlising Tkinter
 
-    window = Tk() 
-    window.title(f'{gName} ¦ Home Screen')
+    window = Tk()
+    if verifiedUser == None:
+        window.title(f'{gName} | Home Screen')
+    elif verifiedUser != None:
+        window.title(f'{gName} | Home Screen | {verifiedUser}')
     window.geometry("500x250")
 
     # The following Icons are pictures used for the Labels on the home screen
@@ -57,15 +70,22 @@ def enterHome(): # This is the home screen
     lbl3 = Label(
         image=icon5).grid(row=2,column=2)
 
+    t2 = time.time()-t1
+    print('>> Window home loaded in', t2)
+
     window.mainloop()
 
 
 def leave():
+    t1 = time.time()
     window.destroy()
     print("You seem to have left. Did I upset you? What did I do wrong? I thought you loved me...")
+    t2 = time.time()-t1
+    print('>> Exit executed in', t2)
     exit()
     
 def version():
+    t1 = time.time()
     global vCount
     global vVersion
     if vCount % 2 != 0:
@@ -80,37 +100,79 @@ def version():
         print("Hmm.. We seem to have an error, I've shut the program down to stop further issues.")
         exit()
     vCount = vCount+1
+    t2 = time.time()-t1
+    print('>> Window version loaded in', t2)
     
 def play():
     return
 
+def saveUserEntry():
+    global uEtr
+    currentUser = uEtr.get()
+    print(currentUser)
+    global flbl
+    flbl = Label(
+        window,
+        text="").pack()
+    if len(currentUser) < 2 or len(currentUser) > 9:
+        flbl = Label(
+            window,
+            text="This username is not accepted!",
+            fg="red").pack()
+    else:
+        global verifiedUser
+        verifiedUser = currentUser.strip()
+        print(verifiedUser)
+        flbl = Label(
+            window,
+            text="This username is accepted!",
+            fg="green").pack()
+
 def settings():
+    t1 = time.time()
+    global window
     backloop = False
     window.destroy()
 
-    global window2
-    window2 = Tk()
-    window2.title("Schlange ¦ Settings")
-    window2.geometry("200x150")
+    window = Tk() 
+    window.title(f'{gName} ¦ Settings')
+    window.geometry("500x250")
 
     lbl = Label(
-        window2,
+        window,
         text="Welcome to Schlange Settings",
         fg = "black",
         bg="gray"
     ).pack()
 
     btn = Button(
-        window2,
+        window,
         text="Back to home",
         command=exitSettings).pack()
     if backloop == True:
         print("Hmm.. We seem to have an error, I've shut the program down to stop further issues.")
         exit()
 
+    ulbl = Label(
+        window,
+        text="Player username").pack()
+    global uEtr
+    uEtr = Entry(
+        window,
+        )
+    uEtr.pack()
+    
+    sEtr = Button(
+        window,
+        text="Save username",
+        command=saveUserEntry).pack()
+
+    t2 = time.time()-t1
+    print('>> Window settings loaded in', t2)
+
 def exitSettings():
     backloop = True
-    window2.destroy()
+    window.destroy()
     enterHome()
 
 enterHome()
