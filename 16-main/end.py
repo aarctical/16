@@ -12,7 +12,7 @@ currentUser = None # Default fallback for functions later on
 verifiedUser = None # Default fallback for functions later on
 
 def enterHome(): # This is the home screen
-    t1 = time.time()
+    t1 = time.time() # Takes current time to calculate initialisation times
     global window # Allows the window to be called/modified outside of this function
     global gName # Allows reference of the gName variable
     global verifiedUser # Allows reference of the user variable
@@ -69,13 +69,13 @@ def enterHome(): # This is the home screen
     window.mainloop() # Allows the window to run forever unless the breakpoint is reached
 
 
-def leave():
-    t1 = time.time()
-    window.destroy()
-    print("You seem to have left. Did I upset you? What did I do wrong? I thought you loved me...")
-    t2 = time.time()-t1
-    print('>> Exit executed in', t2)
-    exit()
+def leave(): # This is the exit breakpoint, accessed by the home screen
+    t1 = time.time() # Takes current time to calculate initialisation times
+    window.destroy() # Shuts the home screen
+    print("You seem to have left. Did I upset you? What did I do wrong? I thought you loved me...") # Exit message (See bottom)
+    t2 = time.time()-t1 # Takes current time and minuses from initialising time -> This is used to see how long windows are taking to load (locally)
+    print('>> Exit executed in', t2) # Prints the above information to the console
+    exit() # Break point in the program to stop it running completely (final step in shutdown)
     
 def version():
     t1 = time.time()
