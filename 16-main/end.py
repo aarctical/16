@@ -7,33 +7,24 @@ import random
 
 gName = "Schlange" # Game Name
 vCount = 0 # This is the version count (For MOD show/hide Function)
-vVersion = "Version: 4.0.3"
-
-""" VARIABLES """
-currentUser = None
-verifiedUser = None
-
-def closeCurrent():
-    window.destroy()
-
-def saveSettings():
-    window.destroy()
-    # More settings add here
+vVersion = "Version: 4.0.3" # Version number, manually updated
+currentUser = None # Default fallback for functions later on
+verifiedUser = None # Default fallback for functions later on
 
 def enterHome(): # This is the home screen
     t1 = time.time()
     global window # Allows the window to be called/modified outside of this function
     global gName # Allows reference of the gName variable
-    global verifiedUser
+    global verifiedUser # Allows reference of the user variable
     
     # The following 'window' objects start a new window utlising Tkinter
 
-    window = Tk()
-    if verifiedUser == None:
-        window.title(f'{gName} | Home Screen')
+    window = Tk() # Initalises window
+    if verifiedUser == None: # Checks if a user is signed in
+        window.title(f'{gName} | Home Screen') # If no user: no username shows
     elif verifiedUser != None:
-        window.title(f'{gName} | Home Screen | {verifiedUser}')
-    window.geometry("500x250")
+        window.title(f'{gName} | Home Screen | {verifiedUser}') # If user: show username on title
+    window.geometry("500x250") # Size of the window
 
     # The following Icons are pictures used for the Labels on the home screen
 
@@ -62,20 +53,20 @@ def enterHome(): # This is the home screen
     # ^^ The 'GRID' placement of Tkinter allows me to place objects in a uniformed cell no matter the window size ^^
     
     lbl1 = Label(
-        text=f'Welcome to {gName}').grid(row=0,column=2)
+        text=f'Welcome to {gName}').grid(row=0,column=2) # This creates a label for the Homescreen welcoming the User to the game
     lbl2 = Label(
         relief=RIDGE,
         text="""How to play:
         Select a button
         Start a new game by pressing \'Play\'
-        Exit the game by pressing exit""").grid(row=1,column=2)
+        Exit the game by pressing exit""").grid(row=1,column=2) # This provides a box with instructions on how to play
     lbl3 = Label(
-        image=icon5).grid(row=2,column=2)
+        image=icon5).grid(row=2,column=2) # Welcoming image (hmm)
 
-    t2 = time.time()-t1
-    print('>> Window home loaded in', t2)
+    t2 = time.time()-t1 # Takes current time and minuses from initialising time -> This is used to see how long windows are taking to load (locally)
+    print('>> Window home loaded in', t2) # Prints the above information to the console
 
-    window.mainloop()
+    window.mainloop() # Allows the window to run forever unless the breakpoint is reached
 
 
 def leave():
