@@ -2,8 +2,8 @@ from tkinter import * # GUI Directory for python
 from tkinter import ttk
 import time # Time function for calculating clock speeds
 from PIL import Image, ImageTk # Image handling (Icons)
-import pygame
-import random
+import pygame # Game function for the snake game
+import random # Function to detemine where food is located (snake game)
 
 gName = "Schlange" # Game Name
 vCount = 0 # This is the version count (For MOD show/hide Function)
