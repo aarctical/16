@@ -1,6 +1,6 @@
 ## Schlange
 
-> Schlange is an open-source Snake Game created in python
+> Schlange is a Snake Game created in python
 
 ## Dependencies
 
