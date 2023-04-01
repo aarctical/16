@@ -77,56 +77,56 @@ def leave(): # This is the exit breakpoint, accessed by the home screen
     print('>> Exit executed in', t2) # Prints the above information to the console
     exit() # Break point in the program to stop it running completely (final step in shutdown)
     
-def version():
-    t1 = time.time()
-    global vCount
-    global vVersion
-    if vCount % 2 != 0:
-        vlbl = Label(
+def version(): # This is the version command that will show the game version
+    t1 = time.time() # Calculates the current time and stores it
+    global vCount # Allows referencing of the vCount variable
+    global vVersion # Allows referencing of the vVersion variable
+    if vCount % 2 != 0: # If the click count modulus (check for remainder) 2 (even number) does not equal 0 then
+        vlbl = Label( # Create new label for blanking the version
             window,
             text="                             ").grid(row=3,column=2)
-    elif vCount % 2 == 0:
-        vlbl = Label(
-            window,text=vVersion).grid(row=3,column=2)
-    else:
-        window.destroy()
-        print("Hmm.. We seem to have an error, I've shut the program down to stop further issues.")
-        exit()
-    vCount = vCount+1
-    t2 = time.time()-t1
-    print('>> Window version loaded in', t2)
+    elif vCount % 2 == 0: # Else if the click count modulus 2 equals 0 then
+        vlbl = Label( # Create new label for the version
+            window,text=vVersion).grid(row=3,column=2) # Using the vVersion variable already defined
+    else: # If there is an error, or the count has surpassed python's limit then
+        window.destroy() # This will destroy the current screen
+        print("Hmm.. We seem to have an error, I've shut the program down to stop further issues.") # This will print out the error message
+        exit() # This will exit the game
+    vCount = vCount+1 # This incriments the current count of vCount to allow it to be passed again
+    t2 = time.time()-t1 # This takes the current time and calculates an execute time
+    print('>> Window version loaded in', t2) # This prints the execute time
     
 def play():
     return
 
-def saveUserEntry():
-    backloop = False
-    global uEtr
-    currentUser = uEtr.get()
-    print(currentUser)
-    global flbl
+def saveUserEntry(): # This defines the save username entry that is referenced in settings
+    backloop = False # Sets the default error catcher to false
+    global uEtr # Globalises the uEtr variable so it can be referenced within this function
+    currentUser = uEtr.get() # Sets a variable to the contents of the uEtr (User Entry)
+    print(currentUser) # This is just a developer tool to see if the username is being caught properly
+    global flbl 
     flbl = Label(
         window,
-        text="").pack()
-    if len(currentUser) < 2 or len(currentUser) > 9:
+        text="").pack() # This label creates a spacer between the top of the window and the first label
+    if len(currentUser) < 2 or len(currentUser) > 9: # If the entry they have provided does not meet criteria
         flbl = Label(
             window,
             text="This username is not accepted!",
-            fg="red").pack()
-    elif len(currentUser) > 1 and len(currentUser) < 10:
-        global verifiedUser
-        verifiedUser = currentUser.strip()
-        print(verifiedUser)
+            fg="red").pack() # Return that the username is not accepted
+    elif len(currentUser) > 1 and len(currentUser) < 10: # If the entry does meet criteria
+        global verifiedUser # Global the variable so it can be referenced
+        verifiedUser = currentUser.strip() # Set the verifiedUser to the entry box content (With no whitespace)
+        print(verifiedUser) # Developer tool to see if it has been caught properly
         flbl = Label(
             window,
             text="This username is accepted!",
-            fg="green").pack()
+            fg="green").pack() # Return the username is accepted and they can use that username
     else:
-        backloop = True
-    if backloop == True:
-        window.destroy()
-        print("Oh no. You've broken me again? That's it... We're over!")
-        exit()
+        backloop = True # If none of those conditions meet, the error catcher sets to true
+    if backloop == True: # If the error catcher is true
+        window.destroy() # Stops the window
+        print("Oh no. You've broken me again? That's it... We're over!") # Sends a unique error code to the console
+        exit() # Exits the game to stop further errors
         
 
 def settings():
