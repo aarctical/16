@@ -129,15 +129,15 @@ def saveUserEntry(): # This defines the save username entry that is referenced i
         exit() # Exits the game to stop further errors
         
 
-def settings():
-    t1 = time.time()
-    global window
-    backloop = False
-    window.destroy()
+def settings(): # Defines the settings function
+    t1 = time.time() # Takes the current time
+    global window # Globalises window so it can be referenced
+    backloop = False # Sets the error catcher to false
+    window.destroy() # Closes the home screen
 
-    window = Tk() 
-    window.title(f'{gName} | Settings')
-    window.geometry("500x250")
+    window = Tk() # Defines new screen for settings
+    window.title(f'{gName} | Settings') # Sets the title of the window
+    window.geometry("500x250") # Sets the geometry of the window
 
     lbl = Label(
         window,
