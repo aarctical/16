@@ -17,4 +17,4 @@
 > - Open `end.py` in an IDLE editor, and run the script
 
 ## Option 2
-> - Download `schlange.exe` from (Schlange)[https://github.com/aarctical/16]
+> - Download `schlange.exe` from [Schlange](https://github.com/aarctical/16)
