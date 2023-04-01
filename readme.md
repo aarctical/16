@@ -17,4 +17,6 @@
 > - Open `end.py` in an IDLE editor, and run the script
 
 ## Option 2
-> - Download `schlange.exe` from [Schlange](https://github.com/aarctical/16)
+> - Download `Portable.rar` from [Schlange](https://github.com/aarctical/16)
+> - Extract the `img` folder and `Schlange.exe` into it's own folder
+> - Run `schlange.exe`
