@@ -10,7 +10,11 @@
 
 ## How to install
 
+# Option 1
 > - You need to download [Schlange](https://github.com/aarctical/16)'s 16-main folder as a ZIP
 > - Extract all files to a folder
 > - Install the required dependencies
 > - Open `end.py` in an IDLE editor, and run the script
+
+# Option 2
+> - Download `schlange.exe` from (Schlange)[https://github.com/aarctical/16]
