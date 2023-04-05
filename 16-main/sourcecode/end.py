@@ -36,19 +36,19 @@ def enterHome(): # This is the home screen
 
     # This will make the 'Play' Label and its Icon
     PlayLbl = Label(image=icon4,relief=RIDGE,bg="white").grid(row=0,column=0)
-    PlayBtn = Button(text="Play",relief=RIDGE,width=20,height=3, command=play).grid(row=0,column=1) 
+    PlayBtn = Button(text="Play",relief=RIDGE,width=20,height=3, fg="green", command=play).grid(row=0,column=1) 
  
     # This will make the 'Settings' Label and its Icon   
     SettingsLbl = Label(image=icon1,relief=RIDGE,bg="white").grid(row=1,column=0)
-    SettingsBtn = Button(text="Settings",relief=RIDGE,width=20,height=3, command=settings).grid(row=1,column=1)
+    SettingsBtn = Button(text="Settings",relief=RIDGE,width=20,height=3, fg="gray", command=settings).grid(row=1,column=1)
 
     # This will make the 'Version' Label and its Icon
     VersionLbl = Label(image=icon3,relief=RIDGE,bg="white").grid(row=2,column=0)
-    VersionBtn = Button(text="Show/Hide Version",relief=RIDGE,width=20,height=3, command=version).grid(row=2,column=1)
+    VersionBtn = Button(text="Show/Hide Version",relief=RIDGE,width=20,height=3, fg="blue", command=version).grid(row=2,column=1)
 
     # This will make the 'Exit' Label and its Icon
     ExitLbl = Label(image=icon2,relief=RIDGE,bg="white").grid(row=3,column=0)
-    ExitBtn = Button(text="Exit",relief=RIDGE,width=20,height=3, command=leave).grid(row=3,column=1)
+    ExitBtn = Button(text="Exit",relief=RIDGE,width=20,height=3, fg="red", command=leave).grid(row=3,column=1)
         
     # ^^ The 'GRID' placement of Tkinter allows me to place objects in a uniformed cell no matter the window size ^^
     
@@ -142,30 +142,30 @@ def settings(): # Defines the settings function
     lbl = Label(
         window,
         text="Welcome to Schlange Settings",
-    ).pack()
+    ).pack() # Generates a label for the screen
 
-    btn = Button(
+    btn = Button( # This button allows the user to go back to the home screen
         window,
         text="Back to home",
         fg="blue",
-        command=exitSettings).pack()
-    if backloop == True:
+        command=exitSettings).pack() # Generates a button for the screen with the command exitSettings
+    if backloop == True: # Error catching
         print("Hmm.. We seem to have an error, I've shut the program down to stop further issues.")
         exit()
 
-    ulbl = Label(
+    ulbl = Label( # Generates a label for the username
         window,
         text="Player username").pack()
-    global uEtr
+    global uEtr # Allows other functions to call this data set
     uEtr = Entry(
         window,
         )
-    uEtr.pack()
+    uEtr.pack() # Creates an entry box to allow the user to input a username
     
-    sEtr = Button(
+    sEtr = Button( # Creates a button to allow the user to save their username
         window,
         text="Save username",
-        command=saveUserEntry).pack()
+        command=saveUserEntry).pack() # Calls function saveUserEntry --> Saves the username locally
 
     t2 = time.time()-t1
     print('>> Window settings loaded in', t2)
