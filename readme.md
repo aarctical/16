@@ -5,8 +5,9 @@
 # Dependencies
 
 > Schlange requires a few libraries to be downloaded via [PIP](https://packaging.python.org/en/latest/tutorials/installing-packages/#:~:text=Ensure%20you%20can%20run%20pip%20from%20the%20command%20line,-Additionally%2C%20you'll&text=Run%20python%20get%2Dpip.py,they're%20not%20installed%20already.&text=Be%20cautious%20if%20you're,system%20or%20another%20package%20manager.) in order to run properly
-> These libraries can be found as:
-> `pygame` `tkinter` `pillow` (PIL)
+
+> Download these libraries via PIP:
+>> `pygame` `tkinter` `pillow` (PIL)
 
 # How to install
 
