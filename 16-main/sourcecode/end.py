@@ -162,40 +162,54 @@ def settings(): # Defines the settings function
         )
     uEtr.pack() # Creates an entry box to allow the user to input a username
     
-    sEtr = Button( # Creates a button to allow the user to save their username
+    tsLbl = Label(
         window,
-        text="Save username",
-        command=saveUserEntry).pack() # Calls function saveUserEntry --> Saves the username locally
+        text="Snake difficulty"
+    ).pack()
+    tsBtn1 = Button(
+        window,
+        text="Easy",
+        fg="Blue"
+    ).pack()
+    tsBtn2 = Button(
+        window,
+        text="Hard",
+        fg="red"
+    ).pack()
 
-    t2 = time.time()-t1
-    print('>> Window settings loaded in', t2)
+    sEtr = Button( # Creates a button to allow the user to save their username
+    window,
+    text="Save Settings",
+    command=saveUserEntry).pack() # Calls function saveUserEntry --> Saves the username locally
 
-def exitSettings():
-    backloop = True
-    window.destroy()
-    enterHome()
+    t2 = time.time()-t1 # Saves current time and takes away from the start time
+    print('>> Window settings loaded in', t2) # Returns the load time to the console
 
-def play():
-    global window
-    global verifiedUser
-    global gName
-    global vVersion
+def exitSettings(): # Creates function to leave settings
+    backloop = True # Enables the error catcher
+    window.destroy() # Stops the settings window
+    enterHome() # Re-calls the home screen
 
-    window.destroy()
+def play(): # Creates function for the play button
+    global window # Allows referencing of variable --> Window
+    global verifiedUser # Allows referencing of variable --> verifiedUser (Current User)
+    global gName # Allows referencing of variable --> gName (Game Name)
+    global vVersion # Allows referencing of variable --> vVersion (Game version)
 
-    pygame.init()
+    window.destroy() # Closes the homescreen
+
+    pygame.init() # Initialises the pygame window
      
-    white = (255, 255, 255)
-    yellow = (255, 255, 102)
+    # These variables define colours used in Schlange by an RGB assignment
+
+    white = (255, 255, 255) 
     black = (0, 0, 0)
-    red = (213, 50, 80)
     green = (0, 255, 0)
-    blue = (50, 153, 213)
+
+    w = 600
+    h = 400
      
-    dis_width = 600
-    dis_height = 400
-     
-    dis = pygame.display.set_mode((dis_width, dis_height))
+    window = pygame.display.set_mode((w, h))
     if verifiedUser != None:
         pygame.display.set_caption(f'{gName} | {verifiedUser}')
     else:
@@ -203,30 +217,19 @@ def play():
         
     clock = pygame.time.Clock()
      
-    snake_block = 10
-    snake_speed = 15
+    block = 10
+    speed = 15
      
-    font_style = pygame.font.SysFont("bahnschrift", 25)
-    score_font = pygame.font.SysFont("comicsansms", 35)
-     
-     
-    def Your_score(score):
-        if verifiedUser != None:
-            value = score_font.render(f'{verifiedUser}\'s Score: ' + str(score), True, white)
-        else:
-            value = score_font.render(f'User\'s Score: ' + str(score), True, white)
-        dis.blit(value, [1000, 1000])
-     
-     
-     
-    def our_snake(snake_block, snake_list):
-        for x in snake_list:
-            pygame.draw.rect(dis, black, [x[0], x[1], snake_block, snake_block])
+    font = pygame.font.SysFont("bahnschrift", 25)
+    
+    def our_snake(block, list):
+        for x in list:
+            pygame.draw.rect(window, black, [x[0], x[1], block, block])
      
      
     def message(msg, color):
-        mesg = font_style.render(msg, True, color)
-        dis.blit(mesg, [dis_width / 6, dis_height / 3])
+        mesg = font.render(msg, True, color)
+        window.blit(mesg, [w / 6, h / 3])
      
     def gameLoop():
         global verifiedUser
@@ -234,22 +237,22 @@ def play():
         game_close = False
         backloop = False
      
-        x1 = dis_width / 2
-        y1 = dis_height / 2
+        x1 = w / 2
+        y1 = h / 2
      
         x1_change = 0
         y1_change = 0
      
-        snake_List = []
-        Length_of_snake = 1
+        list = []
+        length = 1
      
-        foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
-        foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
+        foodx = round(random.randrange(0, w - block) / 10.0) * 10.0
+        foody = round(random.randrange(0, h - block) / 10.0) * 10.0
      
         while not game_over:
      
             while game_close == True:
-                dis.fill(white)
+                window.fill(white)
 
                 text = "You lost!\nSPACE to play again\nX to quit"
                 font = pygame.font.SysFont("arialblack",30)
@@ -270,15 +273,14 @@ def play():
                         x = pos[0]
                         y += word_height
                 
-                display_text(dis, text, (150,150), font, (255,0,0))
-                Your_score(Length_of_snake - 1)
+                display_text(window, text, (150,150), font, (255,0,0))
                 pygame.display.update()
      
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_x:
                             game_over = True
-                            finalscore = str(Length_of_snake-1)
+                            finalscore = str(length-1)
                             if verifiedUser == None:
                                 pygame.quit()
                                 enterHome()
@@ -301,50 +303,49 @@ def play():
                     game_over = True
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                        x1_change = -snake_block
+                        x1_change = -block
                         y1_change = 0
                     elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                        x1_change = snake_block
+                        x1_change = block
                         y1_change = 0
                     elif event.key == pygame.K_w or event.key == pygame.K_UP:
-                        y1_change = -snake_block
+                        y1_change = -block
                         x1_change = 0
                     elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                        y1_change = snake_block
+                        y1_change = block
                         x1_change = 0
      
-            if x1 >= dis_width or x1 < 0 or y1 >= dis_height or y1 < 0:
+            if x1 >= w or x1 < 0 or y1 >= h or y1 < 0:
                 game_close = True
             x1 += x1_change
             y1 += y1_change
-            dis.fill(white)
-            pygame.draw.rect(dis, green, [foodx, foody, snake_block, snake_block])
+            window.fill(white)
+            pygame.draw.rect(window, green, [foodx, foody, block, block])
             snake_Head = []
             snake_Head.append(x1)
             snake_Head.append(y1)
-            snake_List.append(snake_Head)
-            if len(snake_List) > Length_of_snake:
-                del snake_List[0]
+            list.append(snake_Head)
+            if len(list) > length:
+                del list[0]
      
-            for x in snake_List[:-1]:
+            for x in list[:-1]:
                 if x == snake_Head:
                     game_close = True
      
-            our_snake(snake_block, snake_List)
-            Your_score(Length_of_snake - 1)
+            our_snake(block, list)
      
             pygame.display.update()
      
             if x1 == foodx and y1 == foody:
-                foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
-                foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
-                Length_of_snake += 1
+                foodx = round(random.randrange(0, w - block) / 10.0) * 10.0
+                foody = round(random.randrange(0, h - block) / 10.0) * 10.0
+                length += 1
                 if verifiedUser != None:
-                        pygame.display.set_caption(f'{gName} | {verifiedUser} | Score: '+str(Length_of_snake-1))
+                        pygame.display.set_caption(f'{gName} | {verifiedUser} | Score: '+str(length-1))
                 else:
-                    pygame.display.set_caption(f'{gName} | Score: '+str(Length_of_snake-1))
+                    pygame.display.set_caption(f'{gName} | Score: '+str(length-1))
      
-            clock.tick(snake_speed)
+            clock.tick(speed)
         quit()
      
     gameLoop()
